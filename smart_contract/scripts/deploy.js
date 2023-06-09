@@ -6,26 +6,21 @@ const main = async () => {
 
   const lockedAmount = hre.ethers.utils.parseEther("0.001");
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  const Transaction = await hre.ethers.getContractFactory("Transaction");
+  const transaction = await Transaction.deploy();
 
-  await lock.deployed();
+  await transaction.deployed();
 
-  console.log(
-    `Lock with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+  console.log("Transaction deployed to: ", transaction.address);
 };
-
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 const runMain = async () => {
   try {
-    await main;
+    await main();
     process.exit(0);
   } catch (error) {
     console.error(error);
     process.exit(1);
   }
 };
+
+runMain();
